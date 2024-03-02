@@ -36,7 +36,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: orders
-          image: orders:latest
+          image: hpunetha/orders:latest
           imagePullPolicy: Always
           securityContext:
               allowPrivilegeEscalation: false

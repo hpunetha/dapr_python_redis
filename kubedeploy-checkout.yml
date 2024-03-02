@@ -36,7 +36,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: checkout
-          image: checkout:latest
+          image: hpunetha/checkout:latest
           imagePullPolicy: Always
           securityContext:
               allowPrivilegeEscalation: false
