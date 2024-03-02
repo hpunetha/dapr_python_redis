@@ -23,7 +23,6 @@ services:
      "-app-id", "checkout",
      "-app-port", "3000",
      "-app-protocol", "http",
-    #  "-app-ssl",
      "-placement-host-address", "dapr-placement:6000",
      "-dapr-grpc-port", "50001",
       "-metrics-port","9092",
@@ -34,7 +33,6 @@ services:
         - "./dapr/local-components/:/components"
     depends_on:
       - redis
-      #- rabbitmq
     restart: on-failure:3
     network_mode: "service:checkout"
 
@@ -60,7 +58,6 @@ services:
      "-app-id", "orders",
      "-app-port", "5001",
      "-app-protocol", "http",
-    #  "-app-ssl",
      "-placement-host-address", "dapr-placement:6000",
      "-dapr-grpc-port", "50001",
      "-components-path", "/components",
@@ -68,9 +65,6 @@ services:
      ]
     volumes:
         - "./dapr/local-components/:/components"
-    # depends_on:
-    #   - redis
-      #- rabbitmq
     restart: on-failure:3
     network_mode: "service:orders"
   

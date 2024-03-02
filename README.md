@@ -54,7 +54,7 @@ Use below commands to run :-
 
 # Reference links
 
-https://docs.dapr.io/getting-started/
-https://docs.dapr.io/getting-started/quickstarts/pubsub-quickstart/
-https://docs.dapr.io/developing-applications/building-blocks/bindings/howto-triggers/
+https://docs.dapr.io/getting-started/  
+https://docs.dapr.io/getting-started/quickstarts/pubsub-quickstart/  
+https://docs.dapr.io/developing-applications/building-blocks/bindings/howto-triggers/  
 
