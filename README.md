@@ -70,9 +70,7 @@ Use below commands to run :-
   
   - Change back to root directory of the repo and run below commands -
     ```sh
-    kubectl apply -f kubedeploy-checkout.yml -n test
-    kubectl apply -f  kubedeploy-orders.yml -n test
-    kubectl apply -f kubedeploy-redis.yml  -n test
+    kubectl apply -f kubedeploy.yml -n test
     ```
   - Check if all services and pods are up using Lens or with cli using below commands  
     ```
