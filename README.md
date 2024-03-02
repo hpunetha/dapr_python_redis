@@ -18,7 +18,7 @@ And one subscriber:
 
 ### Pre-requisites
 
-
+- [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 <!-- END_IGNORE -->
 
@@ -51,6 +51,39 @@ Use below commands to run :-
 
 - Sample output
   ![req-resp](./outputsamples/request_response_sample.png)
+
+# Running using Kubernetes
+
+- Tested with Docker-Desktop's inbuilt kubernetes offering. Enable Kubernetes in the settings of Docker desktop.  
+
+  - Create a namespace in kubernetes cluster using  
+    ```kubectl create namespace test```  
+  - Set the namespace as default using  
+    ```kubectl config set-context --current --namespace=test```  
+  - Install Dapr to kubernetes namespace (requires [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/) to be installed in system)  
+    ```dapr init -k  -n test```  
+    Above will install all the dependencies of dapr
+  
+  - Change to directory dapr_python_redis\dapr\kubernetes and then run below command  
+    ```kubectl apply -f pubsub.yaml -n test```  
+    Above command will add the pubsub binding we use for communicating with redis
+  
+  - Change back to root directory of the repo and run below commands -
+    ```sh
+    kubectl apply -f kubedeploy-checkout.yml -n test
+    kubectl apply -f  kubedeploy-orders.yml -n test
+    kubectl apply -f kubedeploy-redis.yml  -n test
+    ```
+  - Check if all services and pods are up using Lens or with cli using below commands  
+    ```
+    kubectl get pods -n test
+    kubectl get service -n test
+    ```
+  
+  - Send event from postman or using curl using same approach as in docker-compose.    
+  
+- Sample output
+  ![req-resp](./outputsamples/kubernetes_run.png)
 
 # Reference links
 

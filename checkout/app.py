@@ -28,6 +28,10 @@ def subscribe():
     return jsonify(subscriptions)
 
 
+@app.route('/', methods=['GET'])
+def health():
+    return json.dumps({'status': "Checkout is Running"}), 200, {'ContentType': 'application/json'}
+
 
 @app.route("/publish", methods=['POST'])
 def hello():
