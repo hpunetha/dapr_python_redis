@@ -1,7 +1,7 @@
 # Dapr pub/sub
 
 ## Background
-This repo uses python flask baseed REST-API microservices, redis and dapr runtime to enable publish-subscribe pattern. I have included docker-compose in it to run it as full fledged app in the system including all components.
+This repo uses python flask based REST-API microservices, redis and dapr runtime to enable publish-subscribe pattern. I have included docker-compose in it to run it as full fledged app in the system including all components.
 
 For more details about this quickstart example please see the [Pub-Sub Quickstart documentation](https://docs.dapr.io/getting-started/quickstarts/pubsub-quickstart/).
 
