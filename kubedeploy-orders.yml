@@ -74,31 +74,31 @@ spec:
     - port: 5001
       name: http
       targetPort: 5001
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: dapr-ingress
-#   namespace: test
-#   annotations:
-#     kubernetes.io/ingress.class: azure/application-gateway
-#     appgw.ingress.kubernetes.io/backend-protocol: http
-#     appgw.ingress.kubernetes.io/connection-draining: "true"
-#     appgw.ingress.kubernetes.io/connection-draining-timeout: "30"
-#     appgw.ingress.kubernetes.io/backend-path-prefix: "/"
-#     appgw.ingress.kubernetes.io/request-timeout: "60"
-#     appgw.ingress.kubernetes.io/use-private-ip: "true"
-#     appgw.ingress.kubernetes.io/health-probe-path: "/health"
-#     appgw.ingress.kubernetes.io/health-probe-status-codes: "200"
-# spec:
-#   rules:
-#   - host: localhost
-#     http:
-#       paths:
-#       - path: /orders/*
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: orders
-#             port:
-#               number: 5001
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dapr-ingress
+  namespace: test
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    appgw.ingress.kubernetes.io/backend-protocol: http
+    appgw.ingress.kubernetes.io/connection-draining: "true"
+    appgw.ingress.kubernetes.io/connection-draining-timeout: "30"
+    appgw.ingress.kubernetes.io/backend-path-prefix: "/"
+    appgw.ingress.kubernetes.io/request-timeout: "60"
+    appgw.ingress.kubernetes.io/use-private-ip: "true"
+    appgw.ingress.kubernetes.io/health-probe-path: "/health"
+    appgw.ingress.kubernetes.io/health-probe-status-codes: "200"
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /orders/*
+        pathType: Prefix
+        backend:
+          service:
+            name: orders
+            port:
+              number: 5001

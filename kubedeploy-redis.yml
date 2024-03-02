@@ -34,3 +34,19 @@ spec:
             - containerPort: 6379
 
       restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: test
+  labels:
+    app: redis
+spec:
+  type: LoadBalancer
+  selector:
+    app: redis
+  ports:
+    - port: 6379
+      name: http
+      targetPort: 6379

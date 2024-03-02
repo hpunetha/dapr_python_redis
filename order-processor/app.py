@@ -29,6 +29,11 @@ def subscribe():
     return jsonify(subscriptions)
 
 
+@app.route('/', methods=['GET'])
+def health():
+    return json.dumps({'status': "Order-processor is Running"}), 200, {'ContentType': 'application/json'}
+
+
 # Dapr subscription in /dapr/subscribe sets up this route
 @app.route('/' + sub_topic, methods=['POST'])
 def orders_subscriber():
