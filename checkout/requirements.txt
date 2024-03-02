@@ -1,0 +1,4 @@
+dapr
+typing_extensions
+flask
+cloudevents

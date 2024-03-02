@@ -1,0 +1,5 @@
+Flask
+dapr
+cloudevents
+uvicorn
+dapr-ext-grpc

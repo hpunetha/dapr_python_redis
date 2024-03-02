@@ -1,0 +1,101 @@
+version: '3.4'
+services:
+  checkout:
+    image: "checkout"
+    container_name: "checkout"
+    ports:
+        - "3000:3000" # Dapr requires a HTTPS port to be open
+        - "6004:50001" # Dapr requires a gRPC port per app
+        - "9090:9092"
+    build:
+      context: .
+      dockerfile: checkout/Dockerfile
+    volumes:
+      - "./dapr/local-components/:/components"
+    networks:
+      - test
+
+  checkout-dapr:
+    image: "daprio/daprd:edge"
+    container_name: checkout-dapr
+    command: [
+      "./daprd",
+     "-app-id", "checkout",
+     "-app-port", "3000",
+     "-app-protocol", "http",
+    #  "-app-ssl",
+     "-placement-host-address", "dapr-placement:6000",
+     "-dapr-grpc-port", "50001",
+      "-metrics-port","9092",
+     "-components-path", "/components",
+     "-log-level", "debug"
+     ]
+    volumes:
+        - "./dapr/local-components/:/components"
+    depends_on:
+      - redis
+      #- rabbitmq
+    restart: on-failure:3
+    network_mode: "service:checkout"
+
+  orders:
+    image: "orders"
+    container_name: "orders"
+    ports:
+        - "5001:5001" # Dapr requires a HTTPS port to be open
+        - "6005:50001" # Dapr requires a gRPC port per app
+    build:
+      context: .
+      dockerfile: order-processor/Dockerfile
+    volumes:
+      - "./dapr/local-components/:/components"
+    networks:
+      - test
+  
+  orders-dapr:
+    image: "daprio/daprd:edge"
+    container_name: orders-dapr
+    command: [
+      "./daprd",
+     "-app-id", "orders",
+     "-app-port", "5001",
+     "-app-protocol", "http",
+    #  "-app-ssl",
+     "-placement-host-address", "dapr-placement:6000",
+     "-dapr-grpc-port", "50001",
+     "-components-path", "/components",
+     "-log-level", "debug"
+     ]
+    volumes:
+        - "./dapr/local-components/:/components"
+    # depends_on:
+    #   - redis
+      #- rabbitmq
+    restart: on-failure:3
+    network_mode: "service:orders"
+  
+  dapr-placement:
+    image: "daprio/dapr"
+    container_name: dapr-placement
+    command: ["./placement", "-port", "6000"]
+    ports:
+      - "6000:6000"
+    networks:
+      - test
+
+  redis:
+    image: "redis:alpine"
+    container_name: "redis"
+    command: redis-server
+    ports: 
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/var/lib/redis
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks: 
+      - test
+
+networks:
+  test:
