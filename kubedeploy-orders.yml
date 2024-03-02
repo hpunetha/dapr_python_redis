@@ -52,7 +52,6 @@ spec:
               memory: 4Gi
           ports:
             - containerPort: 5001
-            - containerPort: 8080
           env:
             - name: APP_NAME
               value: orders
@@ -71,7 +70,7 @@ spec:
   selector:
     app: orders
   ports:
-    - port: 5001
+    - port: 81
       name: http
       targetPort: 5001
 ---
@@ -92,7 +91,7 @@ metadata:
     appgw.ingress.kubernetes.io/health-probe-status-codes: "200"
 spec:
   rules:
-  - host: localhost
+  - host: example.com
     http:
       paths:
       - path: /orders/*

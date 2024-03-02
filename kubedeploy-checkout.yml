@@ -52,7 +52,6 @@ spec:
               memory: 2Gi
           ports:
             - containerPort: 3000
-            - containerPort: 8080
           env:
             - name: APP_NAME
               value: checkout
@@ -71,7 +70,7 @@ spec:
   selector:
     app: checkout
   ports:
-    - port: 3000
+    - port: 80
       name: http
       targetPort: 3000
 ---
@@ -92,13 +91,13 @@ metadata:
     appgw.ingress.kubernetes.io/health-probe-status-codes: "200"
 spec:
   rules:
-  - host: localhost
+  - host: example.com
     http:
       paths:
       - path: /checkout/*
         pathType: Prefix
         backend:
           service:
-            name: orders
+            name: checkout
             port:
               number: 3000
